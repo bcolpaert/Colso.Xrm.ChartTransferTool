@@ -18,7 +18,7 @@ using XrmToolBox.Extensibility.Interfaces;
 
 namespace Colso.Xrm.ChartTransferTool
 {
-    public partial class ChartTransferTool : UserControl, IXrmToolBoxPluginControl, IGitHubPlugin, IHelpPlugin, IStatusBarMessenger
+    public partial class ChartTransferTool : PluginControlBase, IXrmToolBoxPluginControl, IGitHubPlugin, IHelpPlugin, IStatusBarMessenger, IPayPalPlugin
     {
         #region Variables
 
@@ -49,18 +49,13 @@ namespace Colso.Xrm.ChartTransferTool
 
         #region XrmToolbox
 
-        public event EventHandler OnCloseTool;
-        public event EventHandler OnRequestConnection;
+        //public event EventHandler OnCloseTool;
+        //public event EventHandler OnRequestConnection;
         public event EventHandler<StatusBarMessageEventArgs> SendMessageToStatusBar;
 
         public Image PluginLogo
         {
             get { return null; }
-        }
-
-        public IOrganizationService Service
-        {
-            get { throw new NotImplementedException(); }
         }
 
         public string HelpUrl
@@ -84,6 +79,22 @@ namespace Colso.Xrm.ChartTransferTool
             get
             {
                 return "MscrmTools";
+            }
+        }
+
+        public string DonationDescription
+        {
+            get
+            {
+                return "Donation for Data Transporter Tool - XrmToolBox";
+            }
+        }
+
+        public string EmailAccount
+        {
+            get
+            {
+                return "bramcolpaert@outlook.com";
             }
         }
 
@@ -134,32 +145,21 @@ namespace Colso.Xrm.ChartTransferTool
 
         private void btnSelectTarget_Click(object sender, EventArgs e)
         {
-            if (OnRequestConnection != null)
-            {
-                var args = new RequestConnectionEventArgs { ActionName = "TargetOrganization", Control = this };
-                OnRequestConnection(this, args);
-            }
+            var args = new RequestConnectionEventArgs { ActionName = "TargetOrganization", Control = this };
+            RaiseRequestConnectionEvent(args);
         }
 
         private void tsbCloseThisTab_Click(object sender, EventArgs e)
         {
-            if (OnCloseTool != null)
-                OnCloseTool(this, null);
+            CloseTool();
         }
 
         private void tsbLoadEntities_Click(object sender, EventArgs e)
         {
             if (service == null)
             {
-                if (OnRequestConnection != null)
-                {
-                    var args = new RequestConnectionEventArgs
-                    {
-                        ActionName = "Load",
-                        Control = this
-                    };
-                    OnRequestConnection(this, args);
-                }
+                var args = new RequestConnectionEventArgs { ActionName = "Load", Control = this };
+                RaiseRequestConnectionEvent(args);
             }
             else
             {
