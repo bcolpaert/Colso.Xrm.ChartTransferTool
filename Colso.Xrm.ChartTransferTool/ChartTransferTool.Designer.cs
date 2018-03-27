@@ -52,8 +52,12 @@
             this.chkAllAttributes = new System.Windows.Forms.CheckBox();
             this.lvCharts = new System.Windows.Forms.ListView();
             this.clAttDisplayName = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.clIsDefault = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.clAttType = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.clIsDefault = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.toolStripDropDownButton1 = new System.Windows.Forms.ToolStripDropDownButton();
+            this.donateInUSDToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.donateInEURToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.donateInGBPToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.gbEntities.SuspendLayout();
             this.pnlHeader.SuspendLayout();
             this.gbEnvironments.SuspendLayout();
@@ -192,7 +196,8 @@
             this.toolStripSeparator2,
             this.tsbLoadEntities,
             this.tsbTransferDashboards,
-            this.toolStripSeparator1});
+            this.toolStripSeparator1,
+            this.toolStripDropDownButton1});
             this.tsMain.Location = new System.Drawing.Point(0, 0);
             this.tsMain.Name = "tsMain";
             this.tsMain.Size = new System.Drawing.Size(800, 25);
@@ -307,15 +312,49 @@
             this.clAttDisplayName.Text = "Display Name";
             this.clAttDisplayName.Width = 150;
             // 
+            // clAttType
+            // 
+            this.clAttType.Text = "Type";
+            this.clAttType.Width = 100;
+            // 
             // clIsDefault
             // 
             this.clIsDefault.Text = "Is Default";
             this.clIsDefault.Width = 150;
             // 
-            // clAttType
+            // toolStripDropDownButton1
             // 
-            this.clAttType.Text = "Type";
-            this.clAttType.Width = 100;
+            this.toolStripDropDownButton1.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.donateInUSDToolStripMenuItem,
+            this.donateInEURToolStripMenuItem,
+            this.donateInGBPToolStripMenuItem});
+            this.toolStripDropDownButton1.Image = global::Colso.Xrm.ChartTransferTool.Properties.Resources.paypal;
+            this.toolStripDropDownButton1.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.toolStripDropDownButton1.Name = "toolStripDropDownButton1";
+            this.toolStripDropDownButton1.Size = new System.Drawing.Size(74, 22);
+            this.toolStripDropDownButton1.Text = "Donate";
+            this.toolStripDropDownButton1.ToolTipText = "Donate";
+            // 
+            // donateInUSDToolStripMenuItem
+            // 
+            this.donateInUSDToolStripMenuItem.Name = "donateInUSDToolStripMenuItem";
+            this.donateInUSDToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.donateInUSDToolStripMenuItem.Text = "Donate in USD";
+            this.donateInUSDToolStripMenuItem.Click += new System.EventHandler(this.donateInUSDToolStripMenuItem_Click);
+            // 
+            // donateInEURToolStripMenuItem
+            // 
+            this.donateInEURToolStripMenuItem.Name = "donateInEURToolStripMenuItem";
+            this.donateInEURToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.donateInEURToolStripMenuItem.Text = "Donate in EUR";
+            this.donateInEURToolStripMenuItem.Click += new System.EventHandler(this.donateInEURToolStripMenuItem_Click);
+            // 
+            // donateInGBPToolStripMenuItem
+            // 
+            this.donateInGBPToolStripMenuItem.Name = "donateInGBPToolStripMenuItem";
+            this.donateInGBPToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.donateInGBPToolStripMenuItem.Text = "Donate in GBP";
+            this.donateInGBPToolStripMenuItem.Click += new System.EventHandler(this.donateInGBPToolStripMenuItem_Click);
             // 
             // ChartTransferTool
             // 
@@ -364,5 +403,9 @@
         private System.Windows.Forms.ColumnHeader clIsDefault;
         private System.Windows.Forms.CheckBox chkAllAttributes;
         private System.Windows.Forms.ColumnHeader clAttType;
+        private System.Windows.Forms.ToolStripDropDownButton toolStripDropDownButton1;
+        private System.Windows.Forms.ToolStripMenuItem donateInUSDToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem donateInEURToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem donateInGBPToolStripMenuItem;
     }
 }

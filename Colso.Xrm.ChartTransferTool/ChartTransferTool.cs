@@ -86,7 +86,7 @@ namespace Colso.Xrm.ChartTransferTool
         {
             get
             {
-                return "Donation for Data Transporter Tool - XrmToolBox";
+                return "Donation for Chart Transfer Tool - XrmToolBox";
             }
         }
 
@@ -190,6 +190,21 @@ namespace Colso.Xrm.ChartTransferTool
         private void chkAllAttributes_CheckedChanged(object sender, EventArgs e)
         {
             lvCharts.Items.OfType<ListViewItem>().ToList().ForEach(item => item.Checked = chkAllAttributes.Checked);
+        }
+
+        private void donateInUSDToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            OpenDonationPage("USD");
+        }
+
+        private void donateInEURToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            OpenDonationPage("EUR");
+        }
+
+        private void donateInGBPToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            OpenDonationPage("GBP");
         }
 
         #endregion Form events
@@ -327,7 +342,9 @@ namespace Colso.Xrm.ChartTransferTool
                                 item.SubItems.Add(typename);
                                 item.SubItems.Add(chart.GetAttributeValue<bool>("isdefault").ToString());
 
-                                if (!chart.GetAttributeValue<bool>("iscustomizable"))
+                                var iscustomizable = chart.GetAttributeValue<object>("iscustomizable");
+                                var notcustomizable = iscustomizable is bool ? (bool)iscustomizable : (iscustomizable is BooleanManagedProperty ? ((BooleanManagedProperty) iscustomizable).Value : true);
+                                if (notcustomizable)
                                 {
                                     item.ForeColor = Color.Gray;
                                     item.ToolTipText = "This chart has not been defined as customizable";
@@ -349,7 +366,7 @@ namespace Colso.Xrm.ChartTransferTool
                                 var items = (List<ListViewItem>)e.Result;
                                 if (items.Count == 0)
                                 {
-                                    MessageBox.Show(this, "The entity does not contain any attributes", "Warning", MessageBoxButtons.OK,
+                                    MessageBox.Show(this, "The entity does not contain any charts", "Warning", MessageBoxButtons.OK,
                                                     MessageBoxIcon.Warning);
                                 }
                                 else
@@ -495,6 +512,11 @@ namespace Colso.Xrm.ChartTransferTool
             targetService.Execute(pubRequest);
         }
 
+        private void OpenDonationPage(string currency)
+        {
+            var url = string.Format("https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business={0}&lc=GB&item_name={1}&currency_code={2}&no_note=0&bn=PP-DonationsBF:btn_donateCC_LG.gif:NonHostedGuest", EmailAccount, DonationDescription, currency);
+            System.Diagnostics.Process.Start(url);
+        }
         #endregion Methods
 
     }
